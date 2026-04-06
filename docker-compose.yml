@@ -1,0 +1,14 @@
+services:
+  h1scout-dev:
+    build: .
+    container_name: h1scout-claude
+    ports:
+      - "2222:22"                   # VSCode SSH 연결용
+    volumes:
+      - cargo-cache:/cargo-cache    # cargo 캐시 영속화
+      - ./:/app                     # 소스 마운트 (결과물 로컬 확인 가능)
+      - /app/target                 # target 폴더는 컨테이너 내부 유지
+    working_dir: /app
+
+volumes:
+  cargo-cache:

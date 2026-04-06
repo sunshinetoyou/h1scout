@@ -1,0 +1,5 @@
+[weights]
+bounty_scale = 0.30
+response_speed = 0.25
+scope_quality = 0.25
+program_health = 0.20

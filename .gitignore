@@ -1,0 +1,21 @@
+# Rust
+/target
+Cargo.lock
+
+# 환경변수 — 절대 커밋 금지
+.env
+
+# SQLite DB 파일
+*.db
+*.sqlite
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+
+# Claude Code 세션 로그
+.claude/
