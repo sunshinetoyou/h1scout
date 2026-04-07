@@ -22,9 +22,9 @@ pub struct ProgramData {
     pub attributes: ProgramAttributes,
 }
 
-#[derive(Debug, Clone, Serialize, Deserialize)]
 fn default_false() -> bool { false }
 
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct ProgramAttributes {
     pub handle: String,
     pub name: String,
