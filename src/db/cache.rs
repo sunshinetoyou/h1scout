@@ -38,7 +38,7 @@ impl Cache {
                 asset_identifier TEXT NOT NULL,
                 eligible_for_bounty INTEGER NOT NULL,
                 eligible_for_submission INTEGER NOT NULL,
-                max_severity TEXT NOT NULL,
+                max_severity TEXT,
                 fetched_at INTEGER NOT NULL DEFAULT (unixepoch())
             )",
         )
@@ -145,7 +145,7 @@ impl Cache {
     }
 
     pub async fn get_scopes_for(&self, handle: &str) -> Result<Vec<ScopeData>> {
-        let rows: Vec<(String, String, String, bool, bool, String)> = sqlx::query_as(
+        let rows: Vec<(String, String, String, bool, bool, Option<String>)> = sqlx::query_as(
             "SELECT id, asset_type, asset_identifier, eligible_for_bounty, eligible_for_submission, max_severity FROM scopes WHERE handle = ?1",
         )
         .bind(handle)

@@ -50,6 +50,11 @@ ENV PATH=$CARGO_HOME/bin:$PATH
 
 WORKDIR /app
 
+# SSH 접속 시 Rust PATH + .env 자동 로드
+RUN echo 'export PATH="/usr/local/cargo/bin:$PATH"' >> /root/.bashrc \
+    && echo 'rustup default stable >/dev/null 2>&1' >> /root/.bashrc \
+    && echo '[ -f /app/.env ] && export $(grep -v "^#" /app/.env | xargs)' >> /root/.bashrc
+
 EXPOSE 22
 
 CMD ["/usr/sbin/sshd", "-D"]

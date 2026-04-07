@@ -115,7 +115,7 @@ mod tests {
                 asset_identifier: identifier.to_string(),
                 eligible_for_bounty: eligible,
                 eligible_for_submission: true,
-                max_severity: "critical".to_string(),
+                max_severity: Some("critical".to_string()),
             },
         }
     }

@@ -1,4 +1,12 @@
-use serde::{Deserialize, Serialize};
+use serde::{Deserialize, Deserializer, Serialize};
+
+fn deserialize_null_bool<'de, D>(deserializer: D) -> Result<bool, D::Error>
+where
+    D: Deserializer<'de>,
+{
+    let opt = Option::<bool>::deserialize(deserializer)?;
+    Ok(opt.unwrap_or(false))
+}
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct ProgramList {
@@ -15,12 +23,17 @@ pub struct ProgramData {
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
+fn default_false() -> bool { false }
+
 pub struct ProgramAttributes {
     pub handle: String,
     pub name: String,
+    #[serde(default = "default_false", deserialize_with = "deserialize_null_bool")]
     pub offers_bounties: bool,
     pub submission_state: String,
+    #[serde(default = "default_false", deserialize_with = "deserialize_null_bool")]
     pub fast_payments: bool,
+    #[serde(default = "default_false", deserialize_with = "deserialize_null_bool")]
     pub open_scope: bool,
 }
 
@@ -42,9 +55,12 @@ pub struct ScopeData {
 pub struct ScopeAttributes {
     pub asset_type: String,
     pub asset_identifier: String,
+    #[serde(default = "default_false", deserialize_with = "deserialize_null_bool")]
     pub eligible_for_bounty: bool,
+    #[serde(default = "default_false", deserialize_with = "deserialize_null_bool")]
     pub eligible_for_submission: bool,
-    pub max_severity: String,
+    #[serde(default)]
+    pub max_severity: Option<String>,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
